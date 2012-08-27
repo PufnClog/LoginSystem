@@ -2,7 +2,7 @@
 
     /**
      * Login System
-     * Desc:        Basic Login
+     * Desc:        Basic Login System
      * Author:      Zoe
      */
 
