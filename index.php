@@ -1,71 +1,44 @@
 <?php
-
-    /**
-     * Login System
-     * Desc:        Basic Login System
-     * Author:      Zoe
+    /*
+     *~~~~~~Practice 1: Winging it~~~~~~
+     *Author:Zoe Wood
+     *Summary: Login System using php and mySQL LETS DO THIS!!!
      */
 
-    $bolLoggedIn = false;
+    // Connect to database NOTE TO SELF: really need to look into this using classes
 
-    $arrUsers = array( array( 'username' => 'Meh',  'password' => 'test' )
-                      ,array( 'username' => 'test', 'password' => 'test2' ) );
+    require_once('./handlers/database.handler.php');
 
-    if( isset( $_POST['username'] ) && isset( $_POST['password'] ) )
+    $objDatabase = new DatabaseHandler('localhost', 'root', 'local');
+
+    //USERNAME AND PASSWORD SENT FROM FORM
+    if( isset( $_POST['username']) && isset( $_POST['password']) )
     {
+        $strUserName = mysql_real_escape_string( $_POST['username'] );
+        $strUserPass = mysql_real_escape_string( $_POST['password'] );
 
-        /**
-         * Escape String
-         * When using a real database make it safe by escaping it
-         *
-         * $strUsername = mysql_real_escape_string($_POST['username'])
-         */
-        $strUsername = $_POST['username'];
-        $strPassword = $_POST['password'];
+        $strQuery = 'SELECT strUserName '.
+                         ', strUserPass '.
+                      'FROM testlogin.tbl_user '.
+                     "WHERE strUserName='$strUserName' ".
+                       "AND strUserPass='$strUserPass'";
 
-        foreach( $arrUsers as $arrUser )
-        {
-
-            if( $strUsername == $arrUser['username'] && $strPassword == $arrUser['password'] )
-            {
-
-                $bolLoggedIn = true;
-                break;
-
-            }
-
-        }
+        $objUser = mysql_query( $strQuery );
+        $arrUser = mysql_fetch_assoc( $objUser );
 
     }
 
 ?>
-
 <!DOCTYPE html>
-<html>
-    <head>
-    <title>Practice</title>
-    </head>
-    <body>
-        <?php
-
-            if(!$bolLoggedIn) {
-
-        ?>
-        <form method="POST">
-            <input name="username" type="text" placeholder="Username">
-            <input name="password" type="password" placeholder="Password">
-            <input type="submit">
-        </form>
-        <?php
-
-            } else{
-
-        ?>
-        <p>Welcome back, <?php echo $strUsername; ?>.</p>
-        <?php
-
-            }
-
-        ?>
-    </body>
-</html>
+    <html>
+        <head>
+            <title>Login Practice</title>
+        </head>
+        <body>
+            <form method="POST">
+                <input name="username" type="text" placeholder="Username">
+                <input name="password" type="password" placeholder="Password">
+                <input type="submit">
+            </form>
+        </body>
+    </html>
