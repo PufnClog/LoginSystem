@@ -40,7 +40,7 @@
      }else{                              //If it isnt...
         echo "Incorrect Login, try again";
     }
-//Notes so far (man its getting late -.-)
+//Notes so far (man its getting late -.-)... something is DEFINATELY missing wth is it >.<
 //Need to see what sessions are all about still probably getting ahead of myself again ^^'
 //Also button? that is all... might need something like a $bolLoggedIn=false like i did with arrays hmmmm
 ?>
